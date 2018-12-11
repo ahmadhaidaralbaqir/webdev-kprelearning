@@ -1,0 +1,106 @@
+/* RESPONSIVE WEBSITE */
+@media screen and (max-width: 720px){
+	.waves-landing{
+		display: none;
+	}
+	.nav-toggle{
+		display: block !important;
+		position: absolute;
+		top: 0%;
+	}
+	header ul{
+		border-top:1px solid rgba(0,0,0,0.1);
+		width: 100%;
+		padding-bottom: 10px;
+		background: white;
+		border-bottom:1px solid rgba(0,0,0,0.1);
+		z-index: 99999999;
+		margin-right: 0px;
+		position: relative;
+	}
+	header ul li{
+		line-height: 40px;
+		width: 100% ;
+		text-align: center;
+	}
+	.welcome-notification .title{
+		width: 99%;
+	}
+	.welcome-notification .subtitle{
+		width: 99%;
+	} 
+	.welcome-notification .btn-action{
+		background-image:linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%);
+		color:whitesmoke !important;
+	}
+	.body-box-widget{
+		margin-left: 0px !important;
+		overflow: hidden;
+		padding: 0px 15px 0px 15px;
+	}
+	.body-box-widget .box-widget{
+		width: 100% !important;
+		margin-left: 0px !important;
+		margin-top: 10px;
+	}
+
+	.box-table{
+		overflow-x:scroll;
+		width: 80%;
+	}
+	.box-table table thead tr td{
+		font-size: 16px;
+	}
+	.box-table table tbody{
+		border-left: 2px solid var(--basic-color);
+	}
+	.box-table table tbody tr td{
+		text-align: center;
+		padding: 20px 0px 20px 0px;
+		font-size: 13px;
+	}
+	.box-table table tbody tr td a{
+		text-decoration: none;
+		color:var(--color-grey);
+		padding: 5px 20px 5px 20px;
+		background-color: var(--basic-color);
+		border-radius: 3px;
+		box-shadow: 0 4px 30px rgba(0,0,0,.05);
+		font-size: 14px;
+	}
+	.container .welcome-notification .title{
+		font-size: 21px;
+		margin-top: 40px;
+		color:black;
+	}
+	.container .welcome-notification .subtitle{
+		color: var(--color-dark);
+		margin-top: 10px;
+	}
+	.user-online{
+		width:100%;
+		float: left;
+	}
+	.box-user-online{
+		width:94%;
+		margin-left: 10px;
+	}
+
+	.user-suggestion{
+		width:100%;
+		float: left;
+	}
+	.user-suggestion .user-box-suggestion{
+		width:94%;
+		float: left;
+		margin-left:10px;
+	}
+	.user-suggestion p{
+		margin-left:10px !important;
+		text-align: center;
+	}
+	.user-online .caption{
+		margin-left:10px !important;
+		text-align: center;
+	}
+}
