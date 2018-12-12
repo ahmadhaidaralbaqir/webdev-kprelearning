@@ -1,7 +1,7 @@
 <div class="welcome-notification">
 			<p class="title">Hi, <b ><?= $nama_siswa; ?></b> ! Selamat datang kembali.</p>
 			<p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt. <a href="" style="text-decoration: underline; color:whitesmoke; ">View users .</a></p>
+			tempor incididunt. </p>
 			<br>
 			<br>
 			<a href="?module=setting" class="btn-action">Change password</a>

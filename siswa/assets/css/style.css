@@ -106,13 +106,13 @@ header .nav-toggle div{
 	height: auto;
 	position: relative;
 }
-.waves-landing{
+/* .waves-landing{
 	width:100%;
 	position: absolute;
 	height: 300px;
 	background-image:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 	top: 10.4%;
-}
+} */
 .breadcumb {
 	margin-left: 40px;
 	float: left;
@@ -139,18 +139,18 @@ header .nav-toggle div{
 .container .welcome-notification .title{
 	font-size: 21px;
 	margin-top: 40px;
-	color:white;
+	color:var(--color-dark);
 }
 .container .welcome-notification .btn-action{
 	text-decoration:none;
-	background-color: white;
 	padding: 8px 15px 8px 15px;
-	color:black;
+	color:white;
 	border-radius: 50px;
+	background-image:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .container .welcome-notification .subtitle{
-	color: var(--color-grey);
+	color: var(--color-semidark);
 	margin-top: 10px;
 }
 
@@ -609,7 +609,7 @@ header .nav-toggle div{
 }
 .question-choice{
 	margin-top: 10px;
-	margin-left: 20px;
+	margin-left: 15px;
 }
 .question-choice li{
 	list-style: none;

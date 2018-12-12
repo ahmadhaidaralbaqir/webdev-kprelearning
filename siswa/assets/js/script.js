@@ -50,3 +50,7 @@ function ikutUlangan(x){
         });
     });
 }
+function submitJawaban(){
+    let answer_question = $("#answer_question");
+    console.log(answer_question);
+}
