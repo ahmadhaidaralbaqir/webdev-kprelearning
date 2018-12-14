@@ -1,6 +1,6 @@
 <?php
     session_start();
-    error_reporting(0);
+    // error_reporting(0);
     if(empty($_SESSION['login'])){
         echo '<script>window.location="../login.php"</script>';
     }

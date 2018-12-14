@@ -99,28 +99,30 @@
 						</thead>
 						<tbody  id="myTable">	
 								<?php
-									$query = $koneksiDb->prepare("SELECT `bab`.*, `ulangan`.*
+					
+										$query2 = $koneksiDb->prepare("SELECT `bab`.*, `ulangan`.*
 										FROM `bab`
 										    INNER JOIN `ulangan` ON `ulangan`.`id_bab` = `bab`.`id_bab` WHERE `bab`.`kode_kelas` = '$kode_kelas' AND  `ulangan`.`status_ulangan` = '1'
 										");
-									$no =1;
-									$query->execute();
-									while($data = $query->fetch(PDO::FETCH_LAZY)){ ?>
-										<tr>
-											<td><?= $no; ?></td>
-											<td><?= $data["nama"]; ?></td>
-											<td><?= $data["status_ulangan"]; ?></td>
-											<td>
-												<?php 
-													if(isset($_SESSION["ulangan"])){ ?>
-														<a href="?module=ulangan">Lanjutkan Ulangan</a>
-													<?php }else{ ?>
-														<a href="javascript:void(0)" onclick="return ikutUlangan('<?= $data["id_ulangan"];  ?>');">Ikut Ulangan</a></td>
-												<?php }
-												 ?>
-												
-										</tr>
-								<?php $no++; }
+										$no =1;
+										$query2->execute();
+										while($data2 = $query2->fetch(PDO::FETCH_LAZY)){ ?>
+											<tr>
+												<td><?= $no; ?></td>
+												<td><?= $data2["nama"]; ?></td>
+												<td><?= $data2["status_ulangan"]; ?></td>
+												<td>
+													<?php 
+														if(isset($_SESSION["ulangan"])){ ?>
+															<a href="?module=ulangan">Lanjutkan Ulangan</a>
+														<?php }else{ ?>
+															<a href="javascript:void(0)" onclick="return ikutUlangan('<?= $data2["id_ulangan"];  ?>');">Ikut Ulangan</a></td>
+													<?php }
+													 ?>
+													
+											</tr>
+									<?php $no++; }
+									
 								 ?>
 						</tbody>
 				</table>

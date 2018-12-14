@@ -13,6 +13,8 @@
       require_once "module/materi/detailmateri.php";
     }elseif($module ==="ulangan"){
       require_once 'ulangan.php';
+    }elseif($module =="hasil"){
+      require_once 'module/submitUlangan.php';
     }else{  
       require_once "default.php";
     }

@@ -1,5 +1,6 @@
+// countdownTimer();
 function liveSearch(){
-    var input,filter,tbody,tr,td,i,
+    let input,filter,tbody,tr,td,i;
     input = document.getElementById("myInput");
     filter  = input.value.toUpperCase();
     tbody = document.getElementById("myTable");
@@ -28,7 +29,7 @@ function ikutUlangan(x){
         title: "Silahkan masukan kode token",
         type: "input",
         showCancelButton: false,
-        confirmButtonText: "ASDASD",
+        confirmButtonText: "Submit",
         closeOnConfirm: false
     },function(inputValue){
         if (inputValue === false ) return false;
@@ -50,7 +51,32 @@ function ikutUlangan(x){
         });
     });
 }
-function submitJawaban(){
-    let answer_question = $("#answer_question");
-    console.log(answer_question);
-}
+// function countdownTimer(){
+//     // Set the date we're counting down to
+//     let countDownDate = new Date("Jan 16, 2018 15:37:25").getTime();
+
+//     // Update the count down every 1 second
+//     let x = setInterval(function() {
+
+//       // Get todays date and time
+//       let now = new Date().getTime();
+        
+//       // Find the distance between now and the count down date
+//       let distance = countDownDate - now;
+        
+//       // Time calculations for days, hours, minutes and seconds
+//       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//       let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+//       // Output the result in an element with id="demo"
+//       document.getElementById("timer").innerHTML = now;
+        
+//       // If the count down is over, write some text 
+//       if (distance < 0) {
+//         clearInterval(x);
+//         document.getElementById("timer").innerHTML = "EXPIRED";
+//       }
+//     }, 1000);
+// }

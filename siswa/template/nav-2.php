@@ -7,9 +7,6 @@
             if($_GET["module"] != "belajar" && $_GET["module"] != "ulangan"){ ?>
                 <a href="javascript:void(0)" onclick="kembali()" class="btn-add-new">Kembali</a>
             <?php  
-              }elseif($_GET["module"] == "ulangan"){ ?>
-                <a href="javascript:void(0)" onclick="submitJawaban()" class="btn-add-new">Submit Ulangan</a>
-            <?php  
               }else{
 
               }
