@@ -1,8 +1,8 @@
 <?php
     session_start();
-    // error_reporting(0);
+    error_reporting(0);
     if(empty($_SESSION['login'])){
-        echo '<script>window.location="../login.php"</script>';
+        echo '<script>window.location="../index.php"</script>';
     }
     require_once '../config/koneksi.php';
     $query = $koneksiDb->prepare("SELECT * FROM `guru` WHERE `id_user` = '$_SESSION[id_user]'");
@@ -37,7 +37,8 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/DataTables/datatables.min.css">
     <link rel="stylesheet" href="assets/lib/sweet alert/sweetalert.css">
-
+    <link rel="stylesheet" href="assets/css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="assets/css/data-table/bootstrap-editable.css">
 </head>
 
 <body class="body-bg">
@@ -89,27 +90,25 @@
                             <nav>
                                 <ul id="nav_menu">
                                     <li>
-                                        <a href="index.php"><i class="ti-dashboard"></i><span>Dashboard</span></a>
+                                        <a href="index.php"><i class="ti-dashboard"></i><span>DASHBOARD</span></a>
                                     </li>
                                     <li class="active">
-                                        <a href="javascript:void(0)"><i class="ti-layout-sidebar-left"></i><span>Data Master</span></a>
+                                        <a href="javascript:void(0)"><i class="ti-layout-sidebar-left"></i><span>DATA MASTER</span></a>
                                         <ul class="submenu">
-                                            <li><a href="?mod=bab">Bab</a></li>
-                                            <li><a href="?mod=materi">Materi</a></li>
-                                            <li><a href="?mod=ulangan">Ulangan</a></li>
-                                            <li><a href="?mod=soal">Soal</a></li>
+                                            <li><a href="?mod=bab">BAB</a></li>
+                                            <li><a href="?mod=materi">MATERI</a></li>
+                                            <li><a href="?mod=ulangan">ULANGAN</a></li>
+                                            <li><a href="?mod=soal">SOAL</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0)"><i class="ti-pie-chart"></i><span>Raport</span></a>
+                                        <a href="javascript:void(0)"><i class="ti-pie-chart"></i><span>LAPORAN NILAI</span></a>
                                         <ul class="submenu">
-                                            <li><a href="barchart.html">Kelas</a></li>
-                                            <li><a href="linechart.html">Siswa</a></li>
+                                            <li><a href="?mod=nilaikelas">/ KELAS</a></li>
+                                            <li><a href="?mod=nilaisiswa">/ SISWA</a></li>
                                         </ul>
                                     </li>
-                                   <li>
-                                       <a href=""><i class="ti-book"></i>Laporan</a>
-                                   </li>
+           
                                 </ul>
                             </nav>
                         </div>
@@ -121,8 +120,9 @@
 
                            
                                 <li class="settings-btn">
-                                    <i class="ti-settings"></i>
+                                    <i class="ti-menu-alt"></i>
                                 </li>
+
                             </ul>
                         </div>
                     </div>
@@ -146,6 +146,8 @@
                     elseif($mod =="materi") require_once 'module/materi/tampilMateri.php';
                     elseif($mod =="ulangan") require_once 'module/ulangan/tampilUlangan.php';
                     elseif($mod =="soal") require_once 'module/soal/soal.php';
+                    elseif($mod =="nilaikelas") require_once 'module/nilai/nilaiKelas.php';
+                    elseif($mod =="nilaisiswa") require_once 'module/nilai/nilaiSiswa.php';
                     else require_once 'default.php';
                 ?>
             </div>
@@ -170,67 +172,77 @@
             <div id="activity" class="tab-pane fade in show active">
                 <div class="recent-activity">
                     <?php
-                            $query = $koneksiDb->prepare("SELECT `ajar`.`nip`, `siswa`.`nama_siswa`, `aktifitas`.`nama_aktifitas`, `aktifitas`.`waktu` FROM `ajar`, `siswa` INNER JOIN `aktifitas` ON `aktifitas`.`nisn` = `siswa`.`nisn` WHERE `ajar`.`nip` = '$_SESSION[nip]'");
+                            $query = $koneksiDb->prepare("SELECT `ajar`.`nip`, `siswa`.`nama_siswa`, `aktifitas`.`nama_aktifitas`, `aktifitas`.`waktu` FROM `ajar`, `siswa` INNER JOIN `aktifitas` ON `aktifitas`.`nisn` = `siswa`.`nisn` WHERE `ajar`.`nip` = '$_SESSION[nip]' AND `ajar`.`kode_kelas` = `siswa`.`kode_kelas` ");
                             $query->execute();
                             while($data = $query->fetch(PDO::FETCH_LAZY)){ ?>
                                     <div class="timeline-task">
-                                        <div class="icon bg1">
-                                                <i class="fa fa-envelope"></i>
-                                        </div>
+                                        <?php
+                                            $nama_aktifitas = explode(" ", $data["nama_aktifitas"]);
+                                            if($nama_aktifitas[1] == "materi"){
+                                                echo ' <div class="icon bg2">
+                                                    <i class="fa fa-envelope"></i>
+                                                </div>';
+                                            }else{
+                                                echo ' <div class="icon bg3">
+                                                    <i class="fa fa-envelope"></i>
+                                                </div>';
+                                            }
+                                         ?>
+                                       
                                         <div class="tm-title">
-                                            <h4>Ahmad haidar</h4>
+                                            <h4><?= $data["nama_siswa"]; ?></h4>
                                             <span class="time"><i class="ti-time"></i>
-                            <?php   
-                                date_default_timezone_set("Asia/Jakarta");
-                                $time_ago = strtotime($data["waktu"]);
-                                $current_time = time();
-                                $time_difference = $current_time - $time_ago;
-                                $seconds  = $time_difference;
-                                                        
-                                $minutes = round($seconds / 60); // value 60 is seconds  
-                                $hours   = round($seconds / 3600); //value 3600 is 60 minutes * 60 sec  
-                                $days    = round($seconds / 86400); //86400 = 24 * 60 * 60;  
-                                $weeks   = round($seconds / 604800); // 7*24*60*60;  
-                                $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
-                                $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
-                    
-                                  if ($seconds <= 60){
+                                            <?php   
+                                                date_default_timezone_set("Asia/Jakarta");
+                                                $time_ago = strtotime($data["waktu"]);
+                                                $current_time = time();
+                                                $time_difference = $current_time - $time_ago;
+                                                $seconds  = $time_difference;
+                                                                        
+                                                $minutes = round($seconds / 60); // value 60 is seconds  
+                                                $hours   = round($seconds / 3600); //value 3600 is 60 minutes * 60 sec  
+                                                $days    = round($seconds / 86400); //86400 = 24 * 60 * 60;  
+                                                $weeks   = round($seconds / 604800); // 7*24*60*60;  
+                                                $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
+                                                $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
+                                    
+                                                  if ($seconds <= 60){
 
-                                      echo "Just Now";
+                                                      echo "Just Now";
 
-                                  }elseif ($minutes <= 60){
+                                                  }elseif ($minutes <= 60){
 
-                                    if ($minutes == 1){
+                                                    if ($minutes == 1){
 
-                                            echo "one minute ago";
-                                    }else{
+                                                            echo "one minute ago";
+                                                    }else{
 
-                                    echo "$minutes minutes ago";
-                                    }
+                                                    echo "$minutes minutes ago";
+                                                    }
 
-                                  }elseif ($hours <= 24){
+                                                  }elseif ($hours <= 24){
 
-                                      if ($hours == 1){
-                                          echo "an hour ago";
-                                      } else {
-                                          echo "$hours hours ago";
-                                      }
+                                                      if ($hours == 1){
+                                                          echo "an hour ago";
+                                                      } else {
+                                                          echo "$hours hours ago";
+                                                      }
 
-                                  }elseif($days <= 7){
+                                                  }elseif($days <= 7){
 
-                                    if ($days == 1){
-                                          echo "yesterday";
-                                  }else{
-                                    echo "$days days ago";
-                                  }
-                                }
-                                                     ?>
-                                            </span>
-                                        </div>
-                                        <p><?= $data["nama_aktifitas"]; ?></p>
-                                    </div>
-                           <?php }
-                     ?>
+                                                    if ($days == 1){
+                                                          echo "yesterday";
+                                                  }else{
+                                                    echo "$days days ago";
+                                                  }
+                                                }
+                                                                     ?>
+                                                            </span>
+                                                        </div>
+                                                        <p><?= $data["nama_aktifitas"]; ?></p>
+                                                    </div>
+                                           <?php }
+                                     ?>
                     
                     
                     
@@ -249,8 +261,9 @@
     <script src="assets/js/jquery.slicknav.min.js"></script>
     <script src="assets/lib/DataTables/datatables.min.js"></script>
 
-
+    
     <script src="assets/lib/sweet alert/sweetalert.min.js"></script>
+
     <!-- others plugins -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
@@ -258,6 +271,16 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(".dataTable").DataTable();
+            $("#export-excel").click(function(e){
+            let table= $(".dataTable").DataTable();
+            $(".dataTable").DataTable(); 
+                e.preventDefault();
+                table.page.len( -1 ).draw();
+                window.open('data:application/vnd.ms.excel,' + encodeURIComponent($('.dataTable').parent().html()));
+                setTimeout(function(){
+                    table.page.len(10).draw();
+                },1000)
+            });
         });
     </script>
 </body>

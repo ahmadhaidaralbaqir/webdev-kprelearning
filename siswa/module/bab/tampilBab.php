@@ -14,6 +14,7 @@
 					<td>No</td>
 					<td>Nama bab</td>
 					<td>Jumlah materi</td>
+					<td>Status</td>
 					<td>Aksi</td>
 				</tr>
 			</thead>
@@ -33,6 +34,7 @@
 							  echo $dataJumlahMateri["jumlahMateri"];
 						 ?>	
 					</td>
+					<td>2 Akfitas belum tuntas</td>
 					<td><a href="?module=materi&rzkwn=<?= $data["id_bab"]; ?>">Pilih bab</a></td>
 				</tr>
 				<?php	}

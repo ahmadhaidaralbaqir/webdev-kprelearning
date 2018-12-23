@@ -15,6 +15,8 @@
       require_once 'ulangan.php';
     }elseif($module =="hasil"){
       require_once 'module/submitUlangan.php';
+    }elseif($module =="nilai"){
+      require_once 'module/nilai/tampilNilai.php';
     }else{  
       require_once "default.php";
     }

@@ -1,11 +1,13 @@
 <div class="welcome-notification">
+	<br>
+	<br>
 			<p class="title">Hi, <b ><?= $nama_siswa; ?></b> ! Selamat datang kembali.</p>
 			<p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			tempor incididunt. </p>
-			<br>
-			<br>
-			<a href="?module=setting" class="btn-action">Change password</a>
-			<a href="logout.php" class="btn-action">Logout</a>
+			<!-- <br> -->
+			<!-- <br> -->
+		<!-- 	<a href="?module=setting" class="btn-action">Change password</a>
+			<a href="logout.php" class="btn-action">Logout</a> -->
 			<br>
 
 </div>
@@ -22,7 +24,7 @@
 	                                    $query2 = $koneksiDb->prepare("SELECT COUNT(*) AS `jumlahMateri` FROM  `materi` WHERE `id_bab`= '$data[id_bab]'");
 	                                    $query2->execute();
 		                                     while($data2= $query2->fetch(PDO::FETCH_LAZY)){
-		                                        $jumlahMateri =+ $data2["jumlahMateri"];
+		                                        $jumlahMateri + $data2["jumlahMateri"];
 		                                        $jumlahMateri ++;
 		                                     }
 
@@ -47,15 +49,20 @@
 					<div class="icon">
 							<img src="assets/img/icon_mater.png">
 							<a href="" class="amount">
-							10
+							<?php
+								$jumlahBab = $koneksiDb->prepare("SELECT COUNT(*) AS jumlahBab FROM `bab` WHERE `kode_kelas` = '$kode_kelas'");
+								$jumlahBab->execute();
+								$datajumlahBab = $jumlahBab->fetch(PDO::FETCH_LAZY);
+								echo $datajumlahBab["jumlahBab"];
+								 ?>
 							</a>
 					</div>
 					<div class="desc">
 						<ul>
-							<li><a href="">Question</a></li>
+							<li><a href="">Bab</a></li>
 						</ul>
 						<br>
-						<a href="?module=question" class="btn-view"> View Question</a>
+						<a href="?module=question" class="btn-view">Lihat bab</a>
 					</div>
 				</div>
 
@@ -63,7 +70,12 @@
 					<div class="icon">
 							<img src="assets/img/aktifitas.png">
 							<a href="" class="amount">
-								20
+								<?php 
+									$jumlahAktifitas = $koneksiDb->prepare("SELECT COUNT(*) AS jumlahAktifitas FROM `aktifitas` WHERE `nisn` = '$nisn'");
+									$jumlahAktifitas->execute();
+									$datajumlahAktifitas = $jumlahAktifitas->fetch(PDO::FETCH_LAZY);
+									echo $datajumlahAktifitas["jumlahAktifitas"];
+								 ?>
 							</a>
 					</div>
 					<div class="desc">
@@ -106,22 +118,23 @@
 										");
 										$no =1;
 										$query2->execute();
-										while($data2 = $query2->fetch(PDO::FETCH_LAZY)){ ?>
-											<tr>
-												<td><?= $no; ?></td>
-												<td><?= $data2["nama"]; ?></td>
-												<td><?= $data2["status_ulangan"]; ?></td>
-												<td>
-													<?php 
-														if(isset($_SESSION["ulangan"])){ ?>
-															<a href="?module=ulangan">Lanjutkan Ulangan</a>
-														<?php }else{ ?>
-															<a href="javascript:void(0)" onclick="return ikutUlangan('<?= $data2["id_ulangan"];  ?>');">Ikut Ulangan</a></td>
-													<?php }
-													 ?>
-													
-											</tr>
-									<?php $no++; }
+										
+										while($data2 = $query2->fetch(PDO::FETCH_LAZY)){ 
+
+											//mengecek apakah siswa telah mengerjakan ulangan atau belum 
+											//jika siswa belum mengerjakan ulangan maka daftar ulangan tidak akan di tampilkan lagi
+											$nama_aktifitas = "Mengerjakan ulangan".$data2["nama"];
+											$cek = $koneksiDb->prepare("SELECT * FROM aktifitas WHERE nama_aktifitas = '$nama_aktifitas' AND nisn = '$nisn'");
+											$cek->execute();
+											if($cek->rowCount() >= 1){ ?>
+											echo "ada";
+
+											<?php }else{ 
+																
+												echo "tidak ada";
+										 }
+
+										 }
 									
 								 ?>
 						</tbody>

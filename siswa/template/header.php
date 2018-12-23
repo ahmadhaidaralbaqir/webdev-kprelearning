@@ -1,8 +1,8 @@
 <?php
     session_start();
-    // error_reporting(0);
+    error_reporting(0);
     if(empty($_SESSION['login'])){
-        echo '<script>window.location="../login.php"</script>';
+        echo '<script>window.location="../index.php"</script>';
     }
     require_once '../config/koneksi.php';
     $query = $koneksiDb->prepare("SELECT * FROM `siswa` WHERE `id_user` = '$_SESSION[id_user]'");
@@ -31,8 +31,13 @@
 		<ul id="menuDropdown">
 			<li><a href="index.php"><i class="fa fa-home"></i>Beranda</a></li>
 			<li><a href="?module=belajar"><i class="fa fa-pencil"></i> Belajar</a></li>
-			<li><a href="?module=datanilai"><i class="fa fa-calendar-check-o"></i></i> Nilai</a></li>
-			<li><a href="?module=peringkat"><i class="fa fa-trophy"></i> Peringkat</a></li>
+			<li><a href="?module=nilai"><i class="fa fa-calendar-check-o"></i></i> Nilai</a></li>
+			<li class="dropdown"><a href=""><img src="assets/img/people-3.jpeg" alt="" style="border-radius: 50%; width: 37px; height: 37px; margin-top: 15px;"></a>
+				<div class="">
+					<a href="logout.php">Logout</a>
+					<a href="">Setting Akun</a>
+				</div>
+			</li>
 		</ul>
 		<div class="nav-toggle" onclick="dropdown(this)">
 			<div></div>
@@ -44,7 +49,6 @@
 		if(empty($_GET["module"])){
 			require_once "waves-landing.php";
 		}else{
-
 			if($_GET["module"] != "detailmateri"){
 				require_once "nav-2.php";
 			}else{

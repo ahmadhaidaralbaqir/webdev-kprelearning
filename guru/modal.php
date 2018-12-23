@@ -190,7 +190,7 @@
                             // membuat kode token 
                             $karakter = "01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
                             $token    = "";
-                            for ($i=0; $i < 6 ; $i++) { 
+                            for ($i=0; $i < 5 ; $i++) { 
                                 $token .= $karakter[rand(0,strlen($karakter))];
                             }
                          ?>

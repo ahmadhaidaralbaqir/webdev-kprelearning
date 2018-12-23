@@ -1,8 +1,9 @@
 <?php
+	//memanggil koneksi database
 	require_once '../../config/koneksi.php';
 	$id_ulangan = $_POST["id_ulangan"];
 	$kode_token =  $_POST["kode_token"];
-
+	//query untuk mengecek kode token 
 	$query = $koneksiDb->prepare("SELECT * FROM `ulangan` WHERE `id_ulangan` = '$id_ulangan'");
 	$query->execute();
 	while($data = $query->fetch(PDO::FETCH_LAZY)){
@@ -11,6 +12,7 @@
 			session_start();
 			$_SESSION["ulangan"] = true;
 			$_SESSION["id_ulangan"] = $id_ulangan;
+			$_SESSION["id_bab"] = $data["id_bab"];
 			$_SESSION["durasi"] = $data["durasi_ulangan"];
 		}else{
 			echo 0;

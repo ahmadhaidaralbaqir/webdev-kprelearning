@@ -10,7 +10,7 @@
 
 <div class="col-12 mb-3">
     <a href="#" class="btn  btn-primary btn-rounded btn-sm" data-toggle="modal" data-target=".modal-tambah-bab"><i class="fa fa-save"></i> Tambah Bab</a>
-    <a href="" class="btn  btn-danger btn-rounded btn-sm"><i class="fa fa-print"></i> Unduh Excel</a>
+   
 </div>
 <div class="col-12">
     <h4 class="header-title">Data Bab</h4>

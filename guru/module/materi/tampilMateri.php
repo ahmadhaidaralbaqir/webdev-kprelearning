@@ -11,7 +11,7 @@
                
                 <div class="col-md-12 mb-3">
                     <a href="#" class="btn btn-rounded btn-primary btn-sm" data-toggle="modal" data-target=".modal-tambah-materi"><i class="fa fa-save"></i> Tambah Materi</a>
-                    <a href="" class="btn btn-rounded btn-danger btn-sm"><i class="fa fa-print"></i> Unduh Excel</a>
+                 
                 </div>
                 <div class="col-md-8">
                     <h4 class="header-title">Data Materi</h4>

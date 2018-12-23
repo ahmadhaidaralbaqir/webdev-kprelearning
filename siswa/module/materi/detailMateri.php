@@ -21,8 +21,33 @@
  ?>
 <div class="detailmateri">
 	<p class="title"><?= $judul_materi; ?></p>
-	<a href="" class="aksi-materi">Materi Sebelumnya</a>
-	<a href="" class="aksi-materi" style="margin-left: 0px;">Materi Selanjutnya</a>
+	<?php
+		$kode_materi = $_GET["rzkwn"];
+		$materiSebelumnya = $koneksiDb->prepare("SELECT * FROM materi WHERE kode_materi < '$kode_materi' LIMIT 1 ");
+		$materiSebelumnya->execute();
+		if($materiSebelumnya->rowCount() >= 1){
+			$dataMateriSebelumnya = $materiSebelumnya->fetch(PDO::FETCH_LAZY);
+			$kode_materiSebelumnya = $dataMateriSebelumnya["kode_materi"];
+
+			echo "<a href='?module=detailmateri&rzkwn=$kode_materiSebelumnya' class='aksi-materi'>Materi Sebelumnya</a>";
+		}else{
+			echo "<a href='' class='aksi-materi'>Materi Sebelumnya</a>";
+		}
+		
+	 ?>
+	 <?php
+		$kode_materi = $_GET["rzkwn"];
+		$materiSelanjutnya = $koneksiDb->prepare("SELECT * FROM materi WHERE kode_materi > '$kode_materi' LIMIT 1 ");
+		$materiSelanjutnya->execute();
+		if($materiSelanjutnya->rowCount() >= 1){
+			$dataMateriSelanjutnya = $materiSelanjutnya->fetch(PDO::FETCH_LAZY);
+			$kode_materiSelanjutnya = $dataMateriSelanjutnya["kode_materi"];
+			echo "<a href='?module=detailmateri&rzkwn=$kode_materiSelanjutnya' class='aksi-materi' style='margin-left: 0px;'>Materi Selanjutnya</a>";
+		}else{
+			echo "<a href='' class='aksi-materi' style='margin-left: 0px;'>Materi Selanjutnya</a>";
+		}
+		
+	 ?>
 	<br>
 	<br>
 	<br>

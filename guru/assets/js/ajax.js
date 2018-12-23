@@ -531,3 +531,65 @@ $("#editSoal").click(function(){
          
 });
 
+
+//nilai kelas
+// //
+ $("#example-nilaiKelas-select-kode_kelas").on("change",function(){
+    let nip = $("#nip").val();
+    let kode_kelas = $("#example-nilaiKelas-select-kode_kelas").val();
+    $.ajax({
+        url: "module/nilai/tampilUlangan.php",
+        type: "POST",
+        data: "kode_kelas="+kode_kelas+"&nip="+nip,
+        dataType: "html",
+        success:function(data){
+             $("#example-nilaiKelas-select-id_ulangan").html(data)
+        }
+    });
+ }); 
+
+ // 
+ $("#example-nilaiKelas-select-id_ulangan").on("change",function(){
+    let kode_kelas = $("#example-nilaiKelas-select-kode_kelas").val();
+    let id_ulangan = $("#example-nilaiKelas-select-id_ulangan").val();
+    $.ajax({
+        url: "module/nilai/nilaiKelasAjax.php",
+        type: "POST",
+        data: "id_ulangan="+id_ulangan+"&kode_kelas="+kode_kelas,
+        dataType: "html",
+        success:function(data){
+            $("#boxNilaiKelas").fadeIn();
+            $("#tabelNilaiKelas").html(data);
+        }
+    });
+ });
+
+ //nilai siswa
+ $("#example-nilaiSiswa-select-kode_kelas").on("change",function(){
+    let nip = $("#nip").val();
+    let kode_kelas = $("#example-nilaiSiswa-select-kode_kelas").val();
+    $.ajax({
+        url: "module/nilai/tampilSiswa.php",
+        type: "POST",
+        data: "kode_kelas="+kode_kelas,
+        dataType: "html",
+        success:function(data){
+             $("#example-nilaiSiswa-select-nisn").html(data)
+        }
+    });
+ }); 
+
+
+  $("#example-nilaiSiswa-select-nisn").on("change",function(){
+    let nisn = $("#example-nilaiSiswa-select-nisn").val();
+    $.ajax({
+        url: "module/nilai/nilaiSiswaAjax.php",
+        type: "POST",
+        data: "nisn="+nisn,
+        dataType: "html",
+        success:function(data){
+            $("#boxNilaiSiswa").fadeIn();
+            $("#tabelNilaiSiswa").html(data);
+        }
+    });
+ });
